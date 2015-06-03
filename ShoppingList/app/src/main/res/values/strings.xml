@@ -4,4 +4,5 @@
     <string name="default_text">No Items</string>
     <string name="itemhint">Type name of item</string>
     <string name="additem">Add Item</string>
+    <string name="shoppinglistitems">Shopping List Items:</string>
 </resources>

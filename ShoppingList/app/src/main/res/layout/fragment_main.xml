@@ -18,9 +18,14 @@
         android:layout_below="@+id/itemedittext"/>
     <TextView
         android:id="@+id/textview"
-        android:text="@string/default_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/shoppinglistitems"
+        android:layout_below="@+id/submititem"/>
+    <ListView
+        android:id="@+id/listview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/submititem"/>
+        android:layout_below="@+id/textview"/>
 
 </RelativeLayout>

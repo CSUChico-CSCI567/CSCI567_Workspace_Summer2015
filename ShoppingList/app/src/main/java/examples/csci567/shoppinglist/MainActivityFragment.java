@@ -5,12 +5,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Vector;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -25,18 +27,29 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.textview);
+        ListView listView1 = (ListView) rootView.findViewById(R.id.listview);
+        //TextView textView = (TextView) rootView.findViewById(R.id.textview);
         List<Item> items = Item.listAll(Item.class);
-        if(items.size()>0){
-            String content = "";
-            for(int i=0; i<items.size();i++){
-                content += items.get(i).name + "\n";
+        ArrayAdapter<String> adapter;
+        if(items.size()>0) {
+            Vector<String> itemvector = new Vector<String>();
+            //String content = "";
+            for (int i = 0; i < items.size(); i++) {
+                itemvector.add(items.get(i).name);
             }
-            textView.setText(content);
+            String[] s = itemvector.toArray(new String[itemvector.size()]);
+            adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
+                    android.R.layout.simple_list_item_1, s);
         }
         else{
-            textView.setText("No Items");
+            Vector<String> itemvector = new Vector<String>();
+            itemvector.add("No Items");
+            String[] s = itemvector.toArray(new String[itemvector.size()]);
+            adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
+                    android.R.layout.simple_list_item_1, s);
+
         }
+        listView1.setAdapter(adapter);
         Button button = (Button) rootView.findViewById(R.id.submititem);
         button.setOnClickListener(this);
         return rootView;
@@ -53,12 +66,26 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
         if(id == R.id.submititem){
             EditText editText = (EditText) rootView.findViewById(R.id.itemedittext);
             if(!editText.getText().toString().matches("")){
-                TextView textView = (TextView) rootView.findViewById(R.id.textview);
+               /* TextView textView = (TextView) rootView.findViewById(R.id.textview);
                 String text = textView.getText().toString() + "\n" + editText.getText().toString();
-                textView.setText(text);
+                textView.setText(text);*/
+
                 Item item = new Item(editText.getText().toString());
                 item.save();
+                ListView listView1 = (ListView) rootView.findViewById(R.id.listview);
+                List<Item> items = Item.listAll(Item.class);
+                ArrayAdapter<String> adapter;
 
+                Vector<String> itemvector = new Vector<String>();
+                //String content = "";
+                for (int i = 0; i < items.size(); i++) {
+                    itemvector.add(items.get(i).name);
+                }
+                String[] s = itemvector.toArray(new String[itemvector.size()]);
+                adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
+                        android.R.layout.simple_list_item_1, s);
+
+                listView1.setAdapter(adapter);
 
                 Toast.makeText(getActivity(), "Item Added", Toast.LENGTH_LONG).show();
                 return;
