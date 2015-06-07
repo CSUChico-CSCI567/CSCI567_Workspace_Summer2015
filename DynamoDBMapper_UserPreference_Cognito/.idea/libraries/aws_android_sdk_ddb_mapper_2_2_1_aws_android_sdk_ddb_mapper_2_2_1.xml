@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="aws-android-sdk-ddb-mapper-2.2.1.aws-android-sdk-ddb-mapper-2.2.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/aws-android-sdk-ddb-mapper-2.2.1/aws-android-sdk-ddb-mapper-2.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

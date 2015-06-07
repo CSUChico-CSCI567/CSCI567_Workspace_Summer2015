@@ -1,0 +1,1 @@
+include ':app', ':aws-android-sdk-core-2.2.1', ':aws-android-sdk-ddb-2.2.1', ':aws-android-sdk-ddb-mapper-2.2.1'
