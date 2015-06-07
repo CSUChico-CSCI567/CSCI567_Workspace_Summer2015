@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +28,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        ListView listView1 = (ListView) rootView.findViewById(R.id.listview);
+        final ListView listView1 = (ListView) rootView.findViewById(R.id.listview);
         //TextView textView = (TextView) rootView.findViewById(R.id.textview);
         List<Item> items = Item.listAll(Item.class);
         ArrayAdapter<String> adapter;
@@ -50,6 +51,21 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 
         }
         listView1.setAdapter(adapter);
+        listView1.setClickable(true);
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View view, final int position, long arg3) {
+                Toast.makeText(getActivity(),arg0.getItemAtPosition(position).toString(),Toast.LENGTH_LONG).show();
+            }
+        });
+        listView1.setLongClickable(true);
+        listView1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View view, final int position, long arg3) {
+                Toast.makeText(getActivity(),"Long Click: " + listView1.getItemAtPosition(position).toString(),Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
         Button button = (Button) rootView.findViewById(R.id.submititem);
         button.setOnClickListener(this);
         return rootView;
