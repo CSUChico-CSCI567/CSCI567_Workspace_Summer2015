@@ -75,7 +75,7 @@ public class MainActivityFragment extends Fragment {
             //Can change time to 0 to ignore time and set min Distance to update when phone moves a
             //certain distance.
             //LocationListener is called on location change.
-            locationManager.requestLocationUpdates(provider, 60, 0, locationListener);
+            locationManager.requestLocationUpdates(provider, 1000, 0, locationListener);
         }
 
 

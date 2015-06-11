@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -19,8 +16,7 @@ public class MainActivityFragment extends Fragment {
     private static final String TAG = "LocationServicesExample";
 
     private View rootView;
-    private static LocationRequest mLocationRequest;
-    protected static GoogleApiClient mGoogleApiClient;
+
     private static FusedLocationService fusedLocationService;
 
     public MainActivityFragment() {
