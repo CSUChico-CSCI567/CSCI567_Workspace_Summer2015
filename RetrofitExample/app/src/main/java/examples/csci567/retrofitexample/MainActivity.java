@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private F2FListAdapter mListAdapter = null;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private static int page;
     public static Context context;
 
     @Override
@@ -33,8 +36,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getBaseContext();
+        page = 1;
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.attachToRecyclerView(mRecyclerView);
+        fab.setOnClickListener(fabClickListener);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(getAdapter());
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
@@ -42,13 +49,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
-                fetchData();
+                if(mListAdapter!=null) {
+                    if(mListAdapter.getData().size()<=0) {
+                        fetchData();
+                    }
+                    else{
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }
+                else{
+                    swipeRefreshLayout.setRefreshing(false);
+                }
             }
         });
     }
+
+    View.OnClickListener fabClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            page++;
+            fetchData();
+        }
+    };
+
     private void fetchData() {
         APIHelper api = APIHelper.getInstance(this);
-        api.createAPIInterface(Recipes.class).recipeList("22bc1ea05b100779244d0e387f11499b", "", "t",0,
+        Log.d("RetroFitExample: ", ((Integer)page).toString());
+        api.createAPIInterface(Recipes.class).recipeList("22bc1ea05b100779244d0e387f11499b", "", "",page,
                 new F2FRetrofitCallback<RecipeList>() {
                     @Override
                     public void success(RecipeList recipes, Response response) {
@@ -61,7 +88,19 @@ public class MainActivity extends AppCompatActivity {
     private void addItemsToList(ArrayList<RecipeItem> data) {
         if (data != null) {
             if (!data.isEmpty()) {
-                mListAdapter.setData(data);
+                if(mListAdapter==null || mListAdapter.getData().size()<=0) {
+                    try {
+                        mListAdapter.setData(data);
+                    }
+                    catch (Exception e){
+                        Log.e("RetroFitExample: ", e.toString());
+                    }
+                }
+                else{
+                    for(int i=0;i<data.size();i++) {
+                        mListAdapter.addData(data.get(i));
+                    }
+                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
