@@ -1,5 +1,6 @@
 package examples.csci567.retrofitexample;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private F2FListAdapter mListAdapter = null;
     private SwipeRefreshLayout swipeRefreshLayout;
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getBaseContext();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

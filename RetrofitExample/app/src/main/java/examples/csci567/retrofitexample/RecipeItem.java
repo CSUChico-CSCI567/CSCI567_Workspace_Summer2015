@@ -59,5 +59,7 @@ public class RecipeItem {
 
     public String getSocialRank(){ return socialRank;}
 
+    public String getImageURL(){ return imageURL;}
+
 
 }

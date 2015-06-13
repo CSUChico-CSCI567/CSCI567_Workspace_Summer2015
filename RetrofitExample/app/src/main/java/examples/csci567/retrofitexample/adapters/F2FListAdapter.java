@@ -1,15 +1,20 @@
 package examples.csci567.retrofitexample.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import examples.csci567.retrofitexample.MainActivity;
 import examples.csci567.retrofitexample.R;
 import examples.csci567.retrofitexample.RecipeItem;
 
@@ -28,13 +33,13 @@ public class F2FListAdapter extends RecyclerView.Adapter<F2FListAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mItemTitle;
-        public TextView mSocialRank;
+        public ImageView mImageView;
         private RecipeItem mRecipeItem;
 
         public ViewHolder(View v) {
             super(v);
             mItemTitle = (TextView) v.findViewById(R.id.item_title);
-            mSocialRank = (TextView) v.findViewById(R.id.social_rank);
+            mImageView = (ImageView) v.findViewById(R.id.image_url);
             v.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -49,7 +54,13 @@ public class F2FListAdapter extends RecyclerView.Adapter<F2FListAdapter.ViewHold
         public void bind(RecipeItem item) {
             mRecipeItem = item;
             mItemTitle.setText(item.getTitle());
-            mSocialRank.setText(item.getSocialRank());
+            Uri uri = Uri.parse(item.getImageURL());
+            Context context = MainActivity.context;
+            Picasso.with(context)
+                    .load(uri)
+                    .resize(400, 400)
+                    .centerCrop()
+                    .into(mImageView);
         }
     }
 
