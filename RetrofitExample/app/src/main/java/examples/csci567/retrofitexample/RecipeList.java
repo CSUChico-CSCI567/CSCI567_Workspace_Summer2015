@@ -3,7 +3,7 @@ package examples.csci567.retrofitexample;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by bryandixon on 6/9/15.
@@ -15,7 +15,7 @@ public class RecipeList {
 
     @SerializedName("recipes")
     @Expose
-    public List<RecipeItem> recipeItems;
+    public ArrayList<RecipeItem> recipeItems;
 
     public int getCount(){
         return count;
@@ -25,11 +25,11 @@ public class RecipeList {
         this.count=count;
     }
 
-    public List<RecipeItem> getRecipeItems(){
+    public ArrayList<RecipeItem> getRecipeItems(){
         return recipeItems;
     }
 
-    public void setRecipeItems(List<RecipeItem> recipeItems){
+    public void setRecipeItems(ArrayList<RecipeItem> recipeItems){
         this.recipeItems = recipeItems;
     }
 }

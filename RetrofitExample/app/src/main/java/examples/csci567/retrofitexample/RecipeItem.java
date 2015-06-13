@@ -1,35 +1,40 @@
 package examples.csci567.retrofitexample;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by bryandixon on 6/9/15.
  */
-public class RecipeItem implements Parcelable {
+public class RecipeItem {
     private static final String TAG = RecipeItem.class.getSimpleName();
 
 
     @SerializedName("title")
     @Expose
     private String title;
-    /*@SerializedName("created_at")
+    @SerializedName("image_url")
     @Expose
-    private String createdAt;
+    private String imageURL;
+    @SerializedName("source_url")
     @Expose
-    private Integer id;
+    private String sourceURL;
+    @SerializedName("f2f_url")
     @Expose
-    private String name;
-    @SerializedName("updated_at")
+    private String f2fURL;
+    @SerializedName("publisher")
     @Expose
-    private String updatedAt;
-    @SerializedName("user_id")
+    private String publisher;
+    @SerializedName("publisher_url")
     @Expose
-    private Integer userId;*/
+    private String publisherURL;
+    @SerializedName("social_rank")
+    @Expose
+    private String socialRank;
+    @SerializedName("page")
+    @Expose
+    private Integer page;
+
 
     public RecipeItem(String title){
         this.title = title;
@@ -52,33 +57,7 @@ public class RecipeItem implements Parcelable {
         this.title = title;
     }
 
+    public String getSocialRank(){ return socialRank;}
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.title);
-    }
-
-    public RecipeItem() {
-    }
-
-    private RecipeItem(Parcel in) {
-        Log.d(TAG, in.toString());
-        this.title = in.readString();
-    }
-
-    public static final Parcelable.Creator<RecipeItem> CREATOR = new Parcelable.Creator<RecipeItem>() {
-        public RecipeItem createFromParcel(Parcel source) {
-            return new RecipeItem(source);
-        }
-
-        public RecipeItem[] newArray(int size) {
-            return new RecipeItem[size];
-        }
-    };
 }
