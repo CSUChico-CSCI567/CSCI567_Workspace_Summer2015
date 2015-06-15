@@ -1,8 +1,10 @@
 package examples.csci567.retrofitexample.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,9 +58,15 @@ public class F2FListAdapter extends RecyclerView.Adapter<F2FListAdapter.ViewHold
             mItemTitle.setText(item.getTitle());
             Uri uri = Uri.parse(item.getImageURL());
             Context context = MainActivity.context;
+            //Code to convert dp to pixels
+            int dp = 250;
+            Resources r = context.getResources();
+            float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+            int pxi = Math.round(px);
+            //Use converted dp to resize picture for image view to that size
             Picasso.with(context)
                     .load(uri)
-                    .resize(500, 500)
+                    .resize(pxi, pxi)
                     .centerCrop()
                     .into(mImageView);
         }
