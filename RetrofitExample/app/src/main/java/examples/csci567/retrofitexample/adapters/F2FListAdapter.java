@@ -58,7 +58,7 @@ public class F2FListAdapter extends RecyclerView.Adapter<F2FListAdapter.ViewHold
             Context context = MainActivity.context;
             Picasso.with(context)
                     .load(uri)
-                    .resize(400, 400)
+                    .resize(500, 500)
                     .centerCrop()
                     .into(mImageView);
         }
