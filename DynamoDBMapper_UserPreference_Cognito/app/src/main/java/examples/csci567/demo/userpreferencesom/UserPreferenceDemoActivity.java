@@ -24,18 +24,55 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.plus.Plus;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+
 public class UserPreferenceDemoActivity extends Activity {
 
     private static final String TAG = "UserPreferenceDemoActivity";
     public static AmazonClientManager clientManager = null;
+
+    @Bind(R.id.logout) Button logoutButton;
+
+    @OnClick(R.id.logout)
+    public void logout(View view){
+        onSignOutClicked();
+    }
+
+    private void onSignOutClicked() {
+
+        // Clear the default account so that GoogleApiClient will not automatically
+        // connect in the future.
+
+        GoogleApiClient mGoogleApiClient = LoginActivity.mGoogleApiClient;
+        if (mGoogleApiClient.isConnected()) {
+            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+            mGoogleApiClient.disconnect();
+        }
+        Intent intent = new Intent(this, LoginActivity.class);
+        //remove backstack
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        String token = "";
 
-        clientManager = new AmazonClientManager(this);
+        // Get the message from the intent
+        Intent intent = getIntent();
+        token = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
+
+
+        clientManager = new AmazonClientManager(this, token);
 
         final Button createTableBttn = (Button) findViewById(R.id.create_table_bttn);
         createTableBttn.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +116,7 @@ public class UserPreferenceDemoActivity extends Activity {
                 new DynamoDBManagerTask().execute(DynamoDBManagerType.CLEAN_UP);
             }
         });
+        ButterKnife.bind(this);
     }
 
     private class DynamoDBManagerTask extends

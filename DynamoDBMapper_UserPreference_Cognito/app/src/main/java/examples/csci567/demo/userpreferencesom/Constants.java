@@ -21,7 +21,7 @@ public class Constants {
 
     public static final String ACCOUNT_ID = "112007793196";
     public static final String IDENTITY_POOL_ID = "us-east-1:52bece8a-5a93-44de-8dcd-af71abf5d499";
-    public static final String UNAUTH_ROLE_ARN = "arn:aws:iam::112007793196:role/Cognito_CSCI567Unauth_Role";
+    public static final String AUTH_ROLE_ARN = "arn:aws:iam::112007793196:role/Cognito_CSCI567Auth_Role";
     // Note that spaces are not allowed in the table name
     public static final String TEST_TABLE_NAME = "TEST_TABLE";
 

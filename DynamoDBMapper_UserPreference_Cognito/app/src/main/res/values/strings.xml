@@ -9,6 +9,8 @@
     <string name="auto_login">Auto Login</string>
     <string name="vibrate">Vibrate</string>
     <string name="silent">Silent</string>
+    <string name="signing_in">Signing In</string>
+    <string name="logout">Logout</string>
 
     <string-array name="color_theme">
         <item>Black</item>

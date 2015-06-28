@@ -24,6 +24,9 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class is used to get clients to the various AWS services. Before
  * accessing a client the credentials should be checked to ensure validity.
@@ -31,12 +34,14 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 public class AmazonClientManager {
 
     private static final String LOG_TAG = "AmazonClientManager";
+    private String token;
 
     private AmazonDynamoDBClient ddb = null;
     private Context context;
 
-    public AmazonClientManager(Context context) {
+    public AmazonClientManager(Context context, String token) {
         this.context = context;
+        this.token = token;
     }
 
     public AmazonDynamoDBClient ddb() {
@@ -47,7 +52,7 @@ public class AmazonClientManager {
     public boolean hasCredentials() {
         return (!(Constants.ACCOUNT_ID.equalsIgnoreCase("CHANGE_ME")
                 || Constants.IDENTITY_POOL_ID.equalsIgnoreCase("CHANGE_ME")
-                || Constants.TEST_TABLE_NAME.equalsIgnoreCase("CHANGE_ME") || Constants.UNAUTH_ROLE_ARN
+                || Constants.TEST_TABLE_NAME.equalsIgnoreCase("CHANGE_ME") || Constants.AUTH_ROLE_ARN
                     .equalsIgnoreCase("CHANGE_ME")));
     }
 
@@ -59,13 +64,16 @@ public class AmazonClientManager {
     }
 
     private void initClients() {
+        Map<String, String> logins = new HashMap<String, String>();
+        logins.put("accounts.google.com", token);
+
+        // initiate a credentials provider
         CognitoCachingCredentialsProvider credentials = new CognitoCachingCredentialsProvider(
                 context,
-                Constants.ACCOUNT_ID,
                 Constants.IDENTITY_POOL_ID,
-                Constants.UNAUTH_ROLE_ARN,
-                null,
                 Regions.US_EAST_1);
+
+        credentials.setLogins(logins);
 
         ddb = new AmazonDynamoDBClient(credentials);
         ddb.setRegion(Region.getRegion(Regions.US_WEST_2));
