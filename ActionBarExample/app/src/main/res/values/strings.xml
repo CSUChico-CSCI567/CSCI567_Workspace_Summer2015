@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">ActionBarExample</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="action_message">Send Message</string>
+    <string name="search_hint">Search for something</string>
+    <string name="inline_preferences">Inline Preferences</string>
+    <string name="title_checkbox_preference">Checkbox Preference Title</string>
+    <string name="summary_checkbox_preference">Checkbox Preference Summary</string>
+    <string name="dialog_based_preferences">Dialogue Based Preferences</string>
+    <string name="title_edittext_preference">EditText Preference Title</string>
+    <string name="summary_edittext_preference">EditText Preference Summary</string>
+    <string name="dialog_title_edittext_preference">EditText Preference Dialog Title</string>
+    <string name="title_list_preference">List Preference Title</string>
+    <string name="summary_list_preference">List Preference Summary</string>
+    <string name="dialog_title_list_preference">List Preference Dialog Title</string>
+    <string name="launch_preferences">Launch Preferences</string>
+    <string name="title_screen_preference">Title Screen Preference</string>
+    <string name="summary_screen_preference">Summary Screen Preference</string>
+    <string name="title_next_screen_toggle_preference">Next Screen Toggle Preference Title</string>
+    <string name="summary_next_screen_toggle_preference">Next Screen Toggle Preference Summary</string>
+    <string name="title_intent_preference">Intent Preference Title</string>
+    <string name="summary_intent_preference">Intent Preference Summary</string>
+    <string name="preference_attributes">Preference Attributes</string>
+    <string name="title_parent_preference">Parent Checkbox Preference Title</string>
+    <string name="summary_parent_preference">Parent Checkbox Preference Summary</string>
+    <string name="title_child_preference">Child Checkbox Preference Title</string>
+    <string name="summary_child_preference">Child Checkbox Preference Summary</string>
+</resources>
